@@ -1,15 +1,17 @@
-# Contribution [#]: [Issue Title]
+# Contribution #1: Top-K Precision/Recall Multilabel Metrics for Ranking Task
 
-**Contribution Number:** [1 / 2 / 3]  
-**Student:** [Your Name]  
-**Issue:** [GitHub issue link]  
-**Status:** [Phase I / Phase II / Phase III / Phase IV] [In Progress / Complete]
+**Contribution Number:** 1
+**Student:** Abdelmageed Abdelmagid
+**Issue:** https://github.com/pytorch/ignite/issues/467
+**Status:** Phase I Complete
 
 ---
 
 ## Why I Chose This Issue
 
-[1-2 paragraphs explaining why this issue interests you, how it matches your skills/learning goals, what you hope to learn]
+The issue focuses on implementing top-k precision and recall metrics for multilabel ranking tasks. I was interested in it because it is a useful metric, directly usable for real ML workflows, and still scoped enough to realistically complete.
+
+This issue aligns well with my learning goals and my skills in AI infrastructure and ML systems. Through this contribution, I hope to learn more about the open source workflow, architecture decisions for large frameworks, and the deep internals of widely used projects.
 
 ---
 
@@ -17,19 +19,19 @@
 
 ### Problem Description
 
-[In your own words, what's broken or missing?]
+Currently there is no official implementation for top-k precision and recall metrics in multilabel ranking. There is only basic precision and recall. 
 
 ### Expected Behavior
 
-[What should happen?]
+Users should be able to compute multilabel precision and recall metrics using only the top-k for each sample.
 
 ### Current Behavior
 
-[What actually happens?]
+No current implementation.
 
 ### Affected Components
 
-[Which parts of the codebase are involved?]
+New files / changes would be added to the metrics folder of the repo, then tests would be added.
 
 ---
 
@@ -105,9 +107,9 @@ Using UMPIRE framework (adapted):
 
 ## Implementation Notes
 
-### Week [X] Progress
+### Week 1 Progress
 
-[What you built this week, challenges faced, decisions made]
+Claimed an issue, cloned the repo and became familiar with its structure.
 
 ### Week [Y] Progress
 
