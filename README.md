@@ -3,7 +3,7 @@
 **Contribution Number:** 1
 **Student:** Abdelmageed Abdelmagid
 **Issue:** https://github.com/pytorch/ignite/issues/467
-**Status:** Phase I Complete
+**Status:** Phase II Complete
 
 ---
 
@@ -39,19 +39,20 @@ New files / changes would be added to the metrics folder of the repo, then tests
 
 ### Environment Setup
 
-[Notes on setting up your local development environment - challenges you faced, how you solved them]
+Set up a local fork of PyTorch Ignite. 
+Cloned fork and installed dependencies.
+Ran existing metric tests to confirm setup was correct
+Main challenge was understanding the metric structure and how outputs are accumulated across batches
 
 ### Steps to Reproduce
 
-1. [Step 1]
-2. [Step 2]
-3. [Observed result]
+1. Create a synthetic multilabel dataset
+2. Pass predictions through standard multilabel metrics 
+3. Observe how current metrics do not evaluate ranked top-k outputs
 
 ### Reproduction Evidence
 
-- **Commit showing reproduction:** [Link to commit in your fork]
-- **Screenshots/logs:** [If applicable]
-- **My findings:** [What you discovered during reproduction]
+Branch: 
 
 ---
 
@@ -59,30 +60,37 @@ New files / changes would be added to the metrics folder of the repo, then tests
 
 ### Analysis
 
-[Your analysis of the root cause - what's causing the issue?]
+The root issue is that it does not support ranking-based conversion (top-k selection) before accumulation.
+The missing piece is a preprocessing step that converts logits to top-k binary mask per sample before passing to existing metrics logic.
 
 ### Proposed Solution
 
-[High-level description of your fix approach]
+Implement:
+
+- TopKMultilabelPrecision
+- TopKMultilabelRecall
+
+They will take raw prediction scores, select top-k indices per sample, convert to binary prediction tensor, reuse current metric logic.
 
 ### Implementation Plan
 
 Using UMPIRE framework (adapted):
 
-**Understand:** [Restate the problem]
+**Understand:** We have to add support for top-k selection in precision and recall metrics.
 
-**Match:** [What similar patterns/solutions exist in the codebase?]
+**Match:** We can reuse _BasePrecisionRecall's logic and mirror existing implementations, this is an extra feature on top of pre existing metrics, not a from scratch implementation.
 
-**Plan:** [Step-by-step implementation plan]
-1. [Modify file X to do Y]
-2. [Add function Z]
-3. [Update tests]
+**Plan:** 
+1. Make new _BaseTopKMultilabelPrecisionRecall
+2. Implement _prepare_output() to flatten batch, apply torch.topk, and build binary mask.
+3. Create TopKMultilabelPrecision and TopKMultilabelRecall
+4. Add tests.
 
 **Implement:** [Link to your branch/commits as you work]
 
-**Review:** [Self-review checklist - does it follow the project's contribution guidelines?]
+**Review:** Ensure consistency with rest of API, try to match existing metric styles as much as possible.
 
-**Evaluate:** [How will you verify it works?]
+**Evaluate:** Run unit tests and regression tests.
 
 ---
 
