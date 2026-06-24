@@ -3,7 +3,7 @@
 **Contribution Number:** 1
 **Student:** Abdelmageed Abdelmagid
 **Issue:** https://github.com/pytorch/ignite/issues/467
-**Status:** Phase II Complete
+**Status:** PR open — waiting for review
 
 ---
 
@@ -86,7 +86,7 @@ Using UMPIRE framework (adapted):
 3. Create TopKMultilabelPrecision and TopKMultilabelRecall
 4. Add tests.
 
-**Implement:** [Link to your branch/commits as you work]
+**Implement:** https://github.com/abdelmagid07/ignite/tree/feat/top-k-multilabel-precision-recall
 
 **Review:** Ensure consistency with rest of API, try to match existing metric styles as much as possible.
 
@@ -98,18 +98,17 @@ Using UMPIRE framework (adapted):
 
 ### Unit Tests
 
-- [ ] Test case 1: [Description]
-- [ ] Test case 2: [Description]
-- [ ] Test case 3: [Description]
+- [x] Test invalid inputs (bad shapes, non-binary y, integer y_pred)
+- [x] Test all average modes against sklearn reference
+- [x] Hand-computed example to confirm top-k per sample semantics
 
 ### Integration Tests
 
-- [ ] Integration scenario 1
-- [ ] Integration scenario 2
+- [x] Distributed / Engine integration tests
 
 ### Manual Testing
 
-[What you tested manually and results]
+Built docs locally and checked metric pages in browser. Ran pre-commit hooks.
 
 ---
 
@@ -119,29 +118,29 @@ Using UMPIRE framework (adapted):
 
 Claimed an issue, cloned the repo and became familiar with its structure.
 
-### Week [Y] Progress
+### Week 2 Progress
 
-[Continue documenting as you work]
+Implemented metrics, added tests and docs, ran pre-commit, opened PR to upstream.
 
 ### Code Changes
 
-- **Files modified:** [List]
-- **Key commits:** [Links to important commits]
-- **Approach decisions:** [Why you chose certain approaches]
+- **Files modified:** `ignite/metrics/top_k_multilabel_precision_recall.py`, `ignite/metrics/__init__.py`, `tests/ignite/metrics/test_top_k_multilabel_precision_recall.py`, `docs/source/metrics.rst`
+- **Key commits:** draft implementation, tests/docs, pre-commit formatting fix
+- **Approach decisions:** Extended _BasePrecisionRecall instead of building from scratch. Clamped k to num_labels when k is too large.
 
 ---
 
 ## Pull Request
 
-**PR Link:** [GitHub PR URL when submitted]
+**PR Link:** https://github.com/pytorch/ignite/pull/3792
 
-**PR Description:** [Draft or final PR description - much of the content above can be adapted]
+**PR Description:** Adds TopKMultilabelPrecision and TopKMultilabelRecall for issue #467. Includes tests, RST docstrings, and metrics.rst updates.
 
 **Maintainer Feedback:**
 - [Date]: [Summary of feedback received]
 - [Date]: [How you addressed it]
 
-**Status:** [Awaiting review / Iterating / Approved / Merged]
+**Status:** Open — awaiting review (CI waiting for maintainer approval)
 
 ---
 
